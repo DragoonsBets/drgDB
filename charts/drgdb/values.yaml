@@ -1,0 +1,25 @@
+# Default values for drgMsDBs.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+bffweb-postgres:
+  postgresqlUsername: drgbffweb
+  postgresqlDatabase: drgBffWeb
+  pgHbaConfiguration: -|
+                      - "host all drgbffweb all trust"
+                      - "local all all all trust"
+  name: drgbffweb
+  fullname: drgbffweb-postgres
+  # Starts a prometeus exporter
+  metrics.enabled: false
+
+user-postgres:
+  postgresqlUsername: drgmsuser
+  postgresqlDatabase: drgMsUser
+  pgHbaConfiguration: -|
+                      - "host all drgmsuser all trust"
+                      - "local all all all trust"
+  name: drgmsuser
+  fullname: drgmsuser-postgres
+  # Starts a prometeus exporter
+  metrics.enabled: false

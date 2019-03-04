@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label "jenkins-maven"
+    label "jenkins-nodejs"
   }
   environment {
     ORG = 'dragoonsbets'
@@ -8,28 +8,12 @@ pipeline {
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
-    stage('CI Build and push snapshot') {
-      when {
-        branch 'PR-*'
-      }
-      environment {
-        PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
-        PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
-        HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
-      }
-      steps {
-        container('maven') {
-          sh "skaffold version"
-          sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
-        }
-      }
-    }
     stage('Build Release') {
       when {
         branch 'master'
       }
       steps {
-        container('maven') {
+        container('nodejs') {
 
           // ensure we're not on a detached head
           sh "git checkout master"
@@ -38,23 +22,28 @@ pipeline {
 
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
-          sh "skaffold version"
-          sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
-
           // Let's create tag in Git
           sh "jx step tag --version \$(cat VERSION)"
         }
       }
     }
     stage('Promote to Environments') {
-      when {
-        branch 'master'
-      }
-      steps {
-        container('maven') {
-          sh "jx step changelog --version v\$(cat VERSION)"
+    when {
+      branch 'master'
+    }
+    steps {
+      container('nodejs') {
+        dir('./charts/drgdb') {
+          sh "jx step changelog --version v\$(cat ../../VERSION)"
+
+          // release the helm chart
+          sh "jx step helm release"
+
+          // promote through all 'Auto' promotion Environments
+          sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)"
         }
       }
+    }
     }
   }
   post {
