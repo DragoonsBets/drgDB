@@ -1,23 +1,23 @@
 apiVersion: v1
+appVersion: 0.1.0
 description: Dragoon Databases
 icon: https://dragoons.io/assets/img/logo_vsmall.png
-name: drgdb
-version: 0.1.0
-appVersion: 0.1.0
 keywords:
 - dragoons
 - drg
 - drg-database
 - database
 - db
+maintainers:
+- email: pgarcia@dragoons.io
+  name: pablog12
+- email: eorsi@dragoons.io
+  name: orsiemilio
+- email: halbano@dragoons.io
+  name: halbano
+- email: gnardone@dragoons.io
+  name: gnardone
+name: drgdb
 sources:
 - https://github.com/DragoonsBets/drgMsDBs
-maintainers:
-- name: pablog12
-  email: pgarcia@dragoons.io
-- name: orsiemilio
-  email: eorsi@dragoons.io
-- name: halbano
-  email: halbano@dragoons.io
-- name: gnardone
-  email: gnardone@dragoons.io
+version: 0.0.2
