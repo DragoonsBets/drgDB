@@ -5,21 +5,15 @@
 bffweb-postgres:
   postgresqlUsername: drgbffweb
   postgresqlDatabase: drgBffWeb
-  pgHbaConfiguration: -|
-                      - "host all drgbffweb all trust"
-                      - "local all all all trust"
-  name: drgbffweb
-  fullname: drgbffweb-postgres
-  # Starts a prometeus exporter
-  metrics.enabled: false
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host all all drgbffweb trust
 
 user-postgres:
   postgresqlUsername: drgmsuser
   postgresqlDatabase: drgMsUser
-  pgHbaConfiguration: -|
-                      - "host all drgmsuser all trust"
-                      - "local all all all trust"
-  name: drgmsuser
-  fullname: drgmsuser-postgres
-  # Starts a prometeus exporter
-  metrics.enabled: false
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host all all drgmsuser trust

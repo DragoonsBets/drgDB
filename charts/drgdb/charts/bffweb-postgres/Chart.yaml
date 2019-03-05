@@ -17,7 +17,7 @@ maintainers:
   name: Bitnami
 - email: cedric@desaintmartin.fr
   name: desaintmartin
-name: postgresql
+name: bffweb-postgres
 sources:
 - https://github.com/bitnami/bitnami-docker-postgresql
 version: 3.11.7
