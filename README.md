@@ -1,3 +1,3 @@
 # Dragoons Databases
 
-This proyect contains all the databases of Dragoons.
+This proyect contains all the databases of Dragoons for our cluster.
