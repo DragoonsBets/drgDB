@@ -10,14 +10,14 @@ keywords:
 - drg-database
 - database
 - db
-sources:
-- https://github.com/DragoonsBets/drgMsDBs
+sources: 
+- https://github.com/DragoonsBets/drgDB
 maintainers:
-name: drgdb
+- name: pablog12
   email: pgarcia@dragoons.io
-name: drgdb
+- name: orsiemilio
   email: eorsi@dragoons.io
-name: drgdb
+- name: halbano
   email: halbano@dragoons.io
-name: drgdb
+- name: gnardone
   email: gnardone@dragoons.io
