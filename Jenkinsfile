@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label "jenkins-nodejs"
+    label "jenkins-maven"
   }
   environment {
     ORG = 'dragoonsbets'
@@ -8,12 +8,29 @@ pipeline {
     CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
   }
   stages {
+    stage('CI Build and push snapshot') {
+      when {
+        branch 'PR-*'
+      }
+      environment {
+        PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
+        PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
+        HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
+      }
+      steps {
+        container('maven') {
+          dir('charts/drgdb') {
+            sh "jx step helm build"
+          }
+        }
+      }
+    }
     stage('Build Release') {
       when {
         branch 'master'
       }
       steps {
-        container('nodejs') {
+        container('maven') {
 
           // ensure we're not on a detached head
           sh "git checkout master"
@@ -22,8 +39,14 @@ pipeline {
 
           // so we can retrieve the version in later steps
           sh "echo \$(jx-release-version) > VERSION"
-          // Let's create tag in Git
-          sh "jx step tag --version \$(cat VERSION)"
+          dir('charts/drgdb') {
+
+            // Let's build chart
+            sh "jx step helm build --verbose"
+
+            // Let's create tag in Git
+            sh "jx step tag --version \$(cat ../../VERSION)"
+          }
         }
       }
     }
@@ -32,14 +55,14 @@ pipeline {
         branch 'master'
       }
       steps {
-        container('nodejs') {
-          dir('./charts/drgdb') {
+        container('maven') {
+          dir('charts/drgdb') {
             sh "jx step changelog --version v\$(cat ../../VERSION)"
 
-            // release the helm chart
+            // Let's release the helm chart
             sh "jx step helm release"
 
-            // promote through all 'Auto' promotion Environments
+            // Let's promote through all 'Auto' promotion Environments
             sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)"
           }
         }
@@ -47,8 +70,8 @@ pipeline {
     }
   }
   post {
-    always {
-      cleanWs()
-    }
+        always {
+          cleanWs()
+        }
   }
 }

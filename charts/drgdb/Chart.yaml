@@ -13,11 +13,11 @@ keywords:
 sources:
 - https://github.com/DragoonsBets/drgMsDBs
 maintainers:
-- name: pablog12
+name: drgdb
   email: pgarcia@dragoons.io
-- name: orsiemilio
+name: drgdb
   email: eorsi@dragoons.io
-- name: halbano
+name: drgdb
   email: halbano@dragoons.io
-- name: gnardone
+name: drgdb
   email: gnardone@dragoons.io
