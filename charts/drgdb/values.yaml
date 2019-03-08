@@ -8,7 +8,8 @@ bffweb-postgres:
   pgHbaConfiguration: |-
     local all all trust
     host all all localhost trust
-    host all all drgbffweb trust
+    host all drgbffweb all trust
+    hostssl all drgbffweb all trust
 
 user-postgres:
   postgresqlUsername: drgmsuser
@@ -16,4 +17,5 @@ user-postgres:
   pgHbaConfiguration: |-
     local all all trust
     host all all localhost trust
-    host all all drgmsuser trust
+    host all drgmsuser all trust
+    hostssl all drgmsuser all trust
