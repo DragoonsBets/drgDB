@@ -128,7 +128,9 @@ postgresqlDataDir: /bitnami/postgresql
 pgHbaConfiguration: |-
   local all all trust
   host all all localhost trust
-  host all all drgbffweb trust
+  host drgBffWeb drgbffweb 0.0.0.0/0 trust
+  hostssl drgBffWeb drgbffweb 0.0.0.0/0 trust
+  host drgBffWeb drgbffweb 0.0.0.0/0 md5
 #   host mydatabase mysuser 192.168.0.0/24 md5
 
 ## ConfigMap with PostgreSQL configuration
