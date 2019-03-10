@@ -4,8 +4,8 @@
 
 bffweb-postgres:
   postgresqlUsername: drgbffweb
-  postgresqlDatabase: drgBffWeb
+  postgresqlDatabase: drgbffweb
 
 user-postgres:
   postgresqlUsername: drgmsuser
-  postgresqlDatabase: drgMsUser
+  postgresqlDatabase: drgmsuser
