@@ -53,8 +53,8 @@ volumePermissions:
 ##
 securityContext:
   enabled: true
-  fsGroup: 1000
-  runAsUser: 0
+  fsGroup: 1001
+  runAsUser: 1001
   # enabled: true
   # fsGroup: 1001
   # runAsUser: 1001
