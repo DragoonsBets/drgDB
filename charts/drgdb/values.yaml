@@ -5,7 +5,15 @@
 bffweb-postgres:
   postgresqlUsername: drgbffweb
   postgresqlDatabase: drgbffweb
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host drgbffweb drgbffweb 0.0.0.0/0 trust
 
 user-postgres:
   postgresqlUsername: drgmsuser
   postgresqlDatabase: drgmsuser
+  pgHbaConfiguration: |-
+    local all all trust
+    host all all localhost trust
+    host drgususer drgmsuser 0.0.0.0/0 trust
