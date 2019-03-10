@@ -132,8 +132,6 @@ pgHbaConfiguration: |-
   local all all trust
   host all all localhost trust
   host drgususer drgmsuser 0.0.0.0/0 trust
-  hostssl drgmsuser drgmsuser 0.0.0.0/0 trust
-  host drgmsuser drgmsuser 0.0.0.0/0 md5
 
 ## ConfigMap with PostgreSQL configuration
 ## NOTE: This will override postgresqlConfiguration and pgHbaConfiguration
